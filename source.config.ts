@@ -8,7 +8,20 @@ import {
 // You can customise Zod schemas for frontmatter and `meta.json` here
 // see https://fumadocs.dev/docs/mdx/collections
 export const docs = defineDocs({
-  dir: "content/docs",
+  dir: "./content/docs",
+  docs: {
+    schema: frontmatterSchema,
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+  },
+  meta: {
+    schema: metaSchema,
+  },
+});
+
+export const blogs = defineDocs({
+  dir: "./content/blogs",
   docs: {
     schema: frontmatterSchema,
     postprocess: {
