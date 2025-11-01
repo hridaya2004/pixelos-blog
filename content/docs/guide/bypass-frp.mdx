@@ -1,16 +1,16 @@
 ---
 title: "Bypassing FRP Lock"
+description: "In this guide, we will see how to bypass the Factory Reset Protection (FRP) lock on Android devices."
 ---
 import { Callout } from "fumadocs-ui/components/callout";
 
-In this guide, we will see how to bypass the Factory Reset Protection (FRP) lock on Android devices.
 
 ## Important Notes
 
 - This method **ONLY** works on userdebug builds
 
 <Callout type="info">
-For builds after [this commit](https://github.com/PixelOS-AOSP/vendor_aosp/commit/ee3e2d2110385f6f6da418bccd3cd14b85b94c9c) (February 22, 2025), the `wipe-frp.sh` script is included in the ROM itself. You do **not** need to download or push the script.
+For builds after [this commit](https://github.com/PixelOS-AOSP/vendor_aosp/commit/ee3e2d2110385f6f6da418bccd3cd14b85b94c9c) (February 22, 2025), the `wipe-frp.sh` script is included in the ROM itself. You do **NOT** need to download or push the script.
 </Callout>
 
 Before starting, ensure you have your device in **recovery mode**, and platform-tools installed.
