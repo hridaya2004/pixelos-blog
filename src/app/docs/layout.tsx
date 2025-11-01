@@ -1,6 +1,6 @@
-import { source } from "@/lib/source/docs";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { baseOptions } from "@/lib/layout.shared";
+import { source } from "@/lib/source/docs";
 
 export default function Layout({ children }: LayoutProps<"/docs">) {
   return (
