@@ -1,0 +1,179 @@
+---
+title: "Submitting a patch"
+---
+import { Callout } from "fumadocs-ui/components/callout";
+
+# Initial Setup
+Setup an account on Gerrit, sign the Contributor Agreement and configure your Gerrit username in the Gerrit portal under Settings -> HTTP Password.
+
+<Callout type="info" title="NOTE">
+Creating a Gerrit account requires you to log in with Google. Be aware that if you delete or unlink all Google accounts associated with your Gerrit account, you won’t be able to log in anymore!
+</Callout>
+
+<Callout type="warn" title="IMPORTANT">
+Gerrit ensures users have completed a valid Contributor Agreement prior to accepting any transferred objects, and if it is not completed, it aborts the network connection before data is sent.
+</Callout>
+
+
+Now make sure your local git username matches with your Gerrit username:
+
+```bash
+git config --global user.email 'you@yourDomain.com'
+git config --global review.review.pixelos.net.username "gerritUsername"
+```
+
+<Callout type="info" title="NOTE">
+Your Gerrit username is case-sensitive.
+</Callout>
+
+If you already have SSH keys set up (e.g. for GitHub), skip the following two steps.
+
+Generate the SSH keys,[1]:
+
+```bash
+ssh-keygen -t ed25519 -C "your@email.com"
+```
+
+Add the keys to the ssh-agent:
+
+```bash
+eval `ssh-agent -s`
+ssh-add ~/.ssh/id_ed25519
+ssh-add
+```
+
+If you are using macOS, you need to run one of the following commands:
+
+```bash
+# macOS 11.x or older:
+ssh-add -K ~/.ssh/id_ed25519 && ssh-add -A
+
+# macOS 12.x and newer:
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519 && ssh-add --apple-load-keychain
+```
+
+After that, copy/paste the content of ~/.ssh/id_ed25519.pub to your Gerrit SSH Settings under Settings -> SSH Keys.
+Now, try the following command to see if you can successfully authenticate to Gerrit:
+
+
+```bash
+ssh gerritUsername@review.pixelos.net -p 29418
+```
+
+If the command above returns “Bad server host key: Invalid key length”, you’ll need to add the following lines to ~/.ssh/config:
+
+```bash
+Host review.pixelos.net
+    RSAMinSize 0
+```
+
+Otherwise, it should show:
+
+```bash
+****    Welcome to Gerrit Code Review    ****
+
+Hi {name}, you have successfully connected over SSH.
+
+Unfortunately, interactive shells are disabled.
+To clone a hosted Git repository, use:
+
+git clone ssh://gerritUsername@review.pixelos.net:29418/REPOSITORY_NAME.git
+
+Connection to review.pixelos.net closed.
+```
+
+<Callout type="info" title="Note">
+Do not use the above ssh command to download the source code. You must use the method in the build section of your device.
+</Callout>
+
+To avoid duplicated Change-Id: trailers in commit messages, especially when cherry-picking changes, make Change-Id: a known trailer to git:
+
+```bash
+git config --global trailer.changeid.key "Change-Id"
+```
+
+
+The steps above have to be performed only once.
+
+## Preparing the build environment
+
+Go to the root of the source code:
+
+```bash
+cd ~/android/lineage
+```
+
+Setup your build environment:
+
+```bash
+source build/envsetup.sh
+```
+
+The rest of this guide will rely on this being done. You can check the proper execution of the commands by typing:
+
+```bash
+croot
+```
+
+Your shell will then navigate to the root of the sources, ~/android/pixelos or give an error.
+
+
+## Submitting to Gerrit
+
+### Uploading your changes
+
+First, you need to start a topic branch. This branch holds the changes you make to the files on your computer that you will ultimately send to the LineageOS’ Gerrit instance for review. Create your topic branch:
+
+```bash
+repo start `<branch name>` `<project path>`
+```
+
+
+<Callout type="info" title="Note">
+This starts a new branch called `<branch name>` in the `<project path>` project. Replace `<project path>` with the path of your target repository instead.
+</Callout>
+
+Change to the project (directory) that contains the file(s) you want to edit:
+
+```bash
+cd path/to/project
+```
+
+Do all the changes you need.
+
+
+<Callout type="warn" title="WARNING">
+Make sure you do not commit any changes before you run repo start, otherwise your changes will happen on a different branch and will not be tracked correctly.
+</Callout>
+
+After you make your changes, you can commit them just as you normally would:
+
+```bash
+git add <file you edited>
+git commit
+```
+
+Alternatively, you can run git add -n . to view all modified files and then run git add . to stage all changes.
+
+<Callout type="success" title="TIP">
+The first line of your commit message will become the change’s title. Add a blank line after the title and write the summary of changes there, if you would like. Make sure that each line does not exceed 80 chars and the title should not exceed 50 chars.
+</Callout>
+
+Now you can upload your changes to Gerrit:
+
+```bash
+repo upload .
+```
+
+An editor will pop up with a list of projects to be uploaded. Uncomment the projects, branches and/or commits you want uploaded, then save and exit the file.
+
+<Callout type="info" title="Note">
+In case you are in the root of the source code, you can type: repo upload `<project path>` or repo upload if you would like to upload more than one project.
+</Callout>
+
+
+That’s it! Your change will be reviewed and may be accepted or rejected. See [Example_cases]() below for an example.
+
+<Callout type="info" title="Tip">
+If you are looking for things to work on, check out the list of open platform issues. We do not have a feature request tracker, so if you would like to implement something, simply do so, and submit it. If it aligns with our project standards, we will gladly accept it.
+</Callout>

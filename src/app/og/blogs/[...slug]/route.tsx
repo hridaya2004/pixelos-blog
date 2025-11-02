@@ -1,13 +1,13 @@
 import { generate as DefaultImage } from "fumadocs-ui/og";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
-import { getPageImage, source } from "@/lib/source/docs";
+import { getPageImage, source } from "@/lib/source/blogs";
 
 export const revalidate = false;
 
 export async function GET(
   _req: Request,
-  { params }: RouteContext<"/og/docs/[...slug]">
+  { params }: RouteContext<"/og/blogs/[...slug]">
 ) {
   const { slug } = await params;
   const page = source.getPage(slug.slice(0, -1));
@@ -18,7 +18,7 @@ export async function GET(
   return new ImageResponse(
     <DefaultImage
       description={page.data.description}
-      site="PixelOS Docs"
+      site="PixelOS Blogs"
       title={page.data.title}
     />,
     {
