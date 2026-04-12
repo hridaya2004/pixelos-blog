@@ -1,20 +1,18 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 import { baseOptions } from "@/lib/layout.shared";
+import { LatestBlog } from "@/components/latest-blog";
 
 const Home = () => (
   <HomeLayout {...baseOptions()}>
-    <div className="flex flex-col flex-1 justify-center px-4 py-8 text-center">
-      <h1 className="font-medium text-xl mb-4">PixelOS.</h1>
-      <Link
-        to="/docs/$"
-        params={{
-          _splat: "",
-        }}
-        className="px-3 py-2 rounded-lg bg-fd-primary text-fd-primary-foreground font-medium text-sm mx-auto"
-      >
-        Open Docs
-      </Link>
+    <div className="container mx-auto grid grid-rows-[1fr_1fr] gap-4 h-[calc(100vh-3.5rem)] min-h-0 py-8">
+      <div className="grid grid-cols-1 sm:grid-cols-[7fr_3fr] gap-4 min-h-0">
+        <LatestBlog />
+        <div className="rounded-3xl bg-fd-card border border-fd-border" />
+      </div>
+      <div className="rounded-3xl bg-fd-card border border-fd-border w-full flex items-center justify-center">
+        Download now
+      </div>
     </div>
   </HomeLayout>
 );
