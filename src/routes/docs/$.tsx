@@ -1,8 +1,8 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
-import { DocsLayout } from 'fumadocs-ui/layouts/docs';
-import { createServerFn } from '@tanstack/react-start';
-import { getPageMarkdownUrl, source } from '@/lib/source';
-import browserCollections from 'collections/browser';
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { createServerFn } from "@tanstack/react-start";
+import { getPageMarkdownUrl, source } from "@/lib/source";
+import browserCollections from "collections/browser";
 import {
   DocsBody,
   DocsDescription,
@@ -10,37 +10,18 @@ import {
   DocsTitle,
   MarkdownCopyButton,
   ViewOptionsPopover,
-} from 'fumadocs-ui/layouts/docs/page';
-import { baseOptions } from '@/lib/layout.shared';
-import { gitConfig } from '@/lib/shared';
-import { useFumadocsLoader } from 'fumadocs-core/source/client';
-import { Suspense } from 'react';
-import { useMDXComponents } from '@/components/mdx';
+} from "fumadocs-ui/layouts/docs/page";
+import { baseOptions } from "@/lib/layout.shared";
+import { gitConfig } from "@/lib/shared";
+import { useFumadocsLoader } from "fumadocs-core/source/client";
+import { Suspense } from "react";
+import { useMDXComponents } from "@/components/mdx";
 
-export const Route = createFileRoute('/docs/$')({
-  component: Page,
-  loader: async ({ params }) => {
-    const slugs = params._splat?.split('/') ?? [];
-    const data = await serverLoader({ data: slugs });
-    await clientLoader.preload(data.path);
-    return data;
-  },
-});
-
-const serverLoader = createServerFn({
-  method: 'GET',
-})
-  .inputValidator((slugs: string[]) => slugs)
-  .handler(async ({ data: slugs }) => {
-    const page = source.getPage(slugs);
-    if (!page) throw notFound();
-
-    return {
-      path: page.path,
-      markdownUrl: getPageMarkdownUrl(page).url,
-      pageTree: await source.serializePageTree(source.getPageTree()),
-    };
-  });
+// oxlint-disable-next-line typescript/no-explicit-any
+const DocsMDX = ({ MDX }: { MDX: React.ComponentType<{ components: any }> }) => (
+  // oxlint-disable-next-line react/jsx-pascal-case
+  <MDX components={useMDXComponents()} />
+);
 
 const clientLoader = browserCollections.docs.createClientLoader({
   component(
@@ -66,14 +47,32 @@ const clientLoader = browserCollections.docs.createClientLoader({
           />
         </div>
         <DocsBody>
-          <MDX components={useMDXComponents()} />
+          <DocsMDX MDX={MDX} />
         </DocsBody>
       </DocsPage>
     );
   },
 });
 
-function Page() {
+const serverLoader = createServerFn({
+  method: "GET",
+})
+  .inputValidator((slugs: string[]) => slugs)
+  .handler(async ({ data: slugs }) => {
+    const page = source.getPage(slugs);
+    if (!page) {
+      throw notFound();
+    }
+
+    return {
+      markdownUrl: getPageMarkdownUrl(page).url,
+      pageTree: await source.serializePageTree(source.getPageTree()),
+      path: page.path,
+    };
+  });
+
+const Page = () => {
+  // oxlint-disable-next-line no-use-before-define
   const { path, pageTree, markdownUrl } = useFumadocsLoader(Route.useLoaderData());
 
   return (
@@ -81,4 +80,14 @@ function Page() {
       <Suspense>{clientLoader.useContent(path, { markdownUrl, path })}</Suspense>
     </DocsLayout>
   );
-}
+};
+
+export const Route = createFileRoute("/docs/$")({
+  component: Page,
+  loader: async ({ params }) => {
+    const slugs = params._splat?.split("/") ?? [];
+    const data = await serverLoader({ data: slugs });
+    await clientLoader.preload(data.path);
+    return data;
+  },
+});
