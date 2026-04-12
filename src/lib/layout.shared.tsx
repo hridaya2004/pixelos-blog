@@ -6,5 +6,6 @@ export const baseOptions = (): BaseLayoutProps => ({
   nav: {
     // JSX supported
     title: appName,
+    transparentMode: "top",
   },
 });

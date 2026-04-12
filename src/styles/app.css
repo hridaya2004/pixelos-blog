@@ -1,9 +1,24 @@
 @import "tailwindcss";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+@import "@fontsource-variable/google-sans-flex/wght.css";
+@import "@fontsource-variable/google-sans-code/wght.css";
 
 html {
   scrollbar-gutter: stable;
+  font-family: "Google Sans Flex Variable", sans-serif;
+}
+
+code {
+  font-family: "Google Sans Code Variable", monospace;
+}
+
+code:not(:has(span)) {
+  @apply font-medium text-[90%] leading-[1em] bg-fd-accent/50 border-fd-muted-foreground/20 wrap-break-word;
+}
+
+img {
+  @apply rounded-3xl;
 }
 
 html > body[data-scroll-locked] {

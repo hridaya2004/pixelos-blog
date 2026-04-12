@@ -5,7 +5,7 @@ import { baseOptions } from "@/lib/layout.shared";
 const Home = () => (
   <HomeLayout {...baseOptions()}>
     <div className="flex flex-col flex-1 justify-center px-4 py-8 text-center">
-      <h1 className="font-medium text-xl mb-4">Fumadocs on Tanstack Start.</h1>
+      <h1 className="font-medium text-xl mb-4">PixelOS.</h1>
       <Link
         to="/docs/$"
         params={{

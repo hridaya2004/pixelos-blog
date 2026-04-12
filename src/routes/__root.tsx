@@ -29,7 +29,7 @@ export const Route = createRootRoute({
         name: "viewport",
       },
       {
-        title: "Fumadocs on TanStack Start",
+        title: "PixelOS",
       },
     ],
   }),
