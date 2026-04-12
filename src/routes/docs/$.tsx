@@ -4,6 +4,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { getPageMarkdownUrl, source } from "@/lib/source";
 import browserCollections from "collections/browser";
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
+import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 import { baseOptions } from "@/lib/layout.shared";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
 import { Suspense } from "react";
@@ -31,6 +32,9 @@ const clientLoader = browserCollections.docs.createClientLoader({
           </div>
         )}
         <DocsDescription>{frontmatter.description}</DocsDescription>
+        <InlineTOC className="rounded-3xl" items={toc}>
+          Table of Contents
+        </InlineTOC>
         <DocsBody className="border border-fd-accent shadow-2xs shadow-fd-accent rounded-3xl p-8">
           <DocsMDX MDX={MDX} />
         </DocsBody>
@@ -73,6 +77,6 @@ export const Route = createFileRoute("/docs/$")({
     const slugs = params._splat?.split("/") ?? [];
     const data = await serverLoader({ data: slugs });
     await clientLoader.preload(data.path);
-    return data;
+    return { ...data, layoutOptions: baseOptions() };
   },
 });

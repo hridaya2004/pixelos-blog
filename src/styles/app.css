@@ -5,6 +5,7 @@
 @import "@fontsource-variable/google-sans-code/wght.css";
 
 html {
+  @apply scroll-smooth;
   scrollbar-gutter: stable;
   font-family: "Google Sans Flex Variable", sans-serif;
 }
