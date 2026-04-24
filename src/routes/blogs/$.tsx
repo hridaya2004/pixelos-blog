@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { createServerFn } from "@tanstack/react-start";
-import { getDocPageMarkdownUrl, docSource } from "@/lib/source";
+import { getBlogPageMarkdownUrl, blogSource } from "@/lib/source";
 import browserCollections from "collections/browser";
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
@@ -17,7 +17,7 @@ const DocsMDX = ({ MDX }: { MDX: React.ComponentType<{ components: any }> }) => 
   <MDX components={useMDXComponents()} />
 );
 
-const clientLoader = browserCollections.docs.createClientLoader({
+const clientLoader = browserCollections.blogs.createClientLoader({
   component(
     { toc, frontmatter, default: MDX },
     // you can define props for the component
@@ -48,14 +48,14 @@ const serverLoader = createServerFn({
 })
   .inputValidator((slugs: string[]) => slugs)
   .handler(async ({ data: slugs }) => {
-    const page = docSource.getPage(slugs);
+    const page = blogSource.getPage(slugs);
     if (!page) {
       throw notFound();
     }
 
     return {
-      markdownUrl: getDocPageMarkdownUrl(page).url,
-      pageTree: await docSource.serializePageTree(docSource.getPageTree()),
+      markdownUrl: getBlogPageMarkdownUrl(page).url,
+      pageTree: await blogSource.serializePageTree(blogSource.getPageTree()),
       path: page.path,
     };
   });
@@ -71,7 +71,7 @@ const Page = () => {
   );
 };
 
-export const Route = createFileRoute("/docs/$")({
+export const Route = createFileRoute("/blogs/$")({
   component: Page,
   loader: async ({ params }) => {
     const slugs = params._splat?.split("/") ?? [];

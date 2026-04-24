@@ -9,13 +9,14 @@ export const LatestBlog = () => {
   if (isMobile) {
     return (
       <Link
-        to="/docs/$"
+        to="/blogs/$"
         className="relative overflow-hidden rounded-3xl aspect-video bg-fd-card border border-fd-border"
       >
         <Image
           className="absolute inset-0 w-full h-full object-cover"
           alt="Latest blog"
-          src="https://github.com/PixelOS-CI/blog_assets/blob/main/banner.png?raw=True"
+          src="https://raw.githubusercontent.com/PixelOS-CI/blog_assets/refs/heads/main/banner.webp"
+          loading="eager"
         />
 
         <div className="absolute left-1/2 top-[70%] -translate-x-1/2 z-20 w-full">
@@ -32,7 +33,8 @@ export const LatestBlog = () => {
       <Image
         className="absolute inset-0 w-full h-full object-cover"
         alt="Latest blog"
-        src="https://github.com/PixelOS-CI/blog_assets/blob/main/banner.png?raw=True"
+        src="https://raw.githubusercontent.com/PixelOS-CI/blog_assets/refs/heads/main/banner.webp"
+        loading="eager"
       />
 
       <div className="absolute inset-0 z-10 backdrop-blur-md bg-white/10 opacity-0 rounded-3xl group-hover:opacity-100 transition-opacity duration-300" />
@@ -48,7 +50,7 @@ export const LatestBlog = () => {
         </div>
 
         <Link
-          to="/docs/$"
+          to="/blogs/$"
           params={{ _splat: "" }}
           className={cn(
             "px-4 py-2 rounded-3xl",

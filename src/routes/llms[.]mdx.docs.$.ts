@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { getLLMText, source } from "@/lib/source";
+import { getLLMText, blogSource } from "@/lib/source";
 
 export const Route = createFileRoute("/llms.mdx/docs/$")({
   server: {
@@ -7,7 +7,7 @@ export const Route = createFileRoute("/llms.mdx/docs/$")({
       GET: async ({ params }) => {
         const slugs = params._splat?.split("/") ?? [];
         slugs.pop();
-        const page = source.getPage(slugs);
+        const page = blogSource.getPage(slugs);
         if (!page) {
           throw notFound();
         }
