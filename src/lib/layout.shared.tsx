@@ -8,21 +8,27 @@ export const baseOptions = (): BaseLayoutProps => ({
     {
       active: "nested-url",
       on: "nav",
+      text: "Blogs",
+      url: "/blogs/$",
+    },
+    {
+      active: "nested-url",
+      on: "nav",
       text: "Changelogs",
       url: "/changelogs",
     },
-    // {
-    //   active: "nested-url",
-    //   on: "nav",
-    //   text: "For maintainers",
-    //   url: "/docs/maintainers",
-    // },
-    // {
-    //   active: "nested-url",
-    //   on: "nav",
-    //   text: "For users",
-    //   url: "/docs/users",
-    // },
+    {
+      active: "nested-url",
+      on: "nav",
+      text: "For maintainers",
+      url: "/docs/maintainers",
+    },
+    {
+      active: "nested-url",
+      on: "nav",
+      text: "For users",
+      url: "/docs/users",
+    },
     {
       active: "nested-url",
       on: "nav",

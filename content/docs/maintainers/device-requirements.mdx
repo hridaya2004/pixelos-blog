@@ -1,0 +1,30 @@
+---
+title: Device Requirements
+description: Technical requirements that all official PixelOS device builds must meet.
+toc: false
+---
+
+All official PixelOS device builds must meet the following technical requirements. Exceptions may be granted for older devices or during the beta stage.
+
+1. `RemovePackages` **must not** be used. Removing packages is considered a source modification and is not permitted.
+
+2. SELinux **must** be set to **Enforcing** in release builds.
+
+3. Release builds **must** be built as `userdebug` or `user`.
+
+4. `IGNORE_SELINUX_NEVERALLOWS := true` **must not** be used under any circumstances.
+
+5. Builds **must not** include unused props, overlays, or packages. This includes packages that are not being built, packages that do not function, obsolete packages, placebo tweaks, or anything that introduces unnecessary or unwanted behavior.
+
+6. Encryption **must** be enabled and enforced as per stock. This is required to maintain the security and privacy of user data.
+
+7. Kernel sources **must** be made publicly available, unless the OEM has not released them. Prebuilt kernels are **discouraged** for kernel version 5.4 and below.
+
+8. Overclocking or any modification that could cause hardware damage or instability **must not** be included.
+
+<Callout
+  type="info"
+  title={
+    "Exceptions to some of the above requirements may be made for older devices or during the beta stage."
+  }
+/>

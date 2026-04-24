@@ -23,7 +23,13 @@ const clientLoader = browserCollections.docs.createClientLoader({
     // you can define props for the component
   ) {
     return (
-      <DocsPage toc={toc}>
+      <DocsPage
+        toc={toc}
+        footer={{
+          className: "[&>a]:rounded-2xl",
+          enabled: frontmatter.footer,
+        }}
+      >
         <DocsTitle className="text-4xl leading-12">{frontmatter.title}</DocsTitle>
         {frontmatter.authors && (
           <div className="inline-flex items-center gap-2">
@@ -32,9 +38,11 @@ const clientLoader = browserCollections.docs.createClientLoader({
           </div>
         )}
         <DocsDescription>{frontmatter.description}</DocsDescription>
-        <InlineTOC className="rounded-3xl" items={toc}>
-          Table of Contents
-        </InlineTOC>
+        {frontmatter.toc && (
+          <InlineTOC className="rounded-3xl" items={toc}>
+            Table of Contents
+          </InlineTOC>
+        )}
         <DocsBody className="border border-fd-accent shadow-2xs shadow-fd-accent rounded-3xl p-6">
           <DocsMDX MDX={MDX} />
         </DocsBody>

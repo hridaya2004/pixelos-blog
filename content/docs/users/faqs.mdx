@@ -1,0 +1,77 @@
+---
+title: Frequently Asked Questions
+description: Common questions about PixelOS — what it is, how to install it, device support, updates, and more.
+---
+
+## What is PixelOS?
+
+PixelOS is a source-built custom Android ROM — similar to LineageOS — designed to deliver the look and feel of a Google Pixel device, along with meaningful performance enhancements and a carefully chosen set of additional features.
+
+## Is this a Pixel GSI or port?
+
+No. PixelOS is built entirely from source, not ported from Pixel firmware or packaged as a Generic System Image.
+
+## Can I get every Pixel feature on PixelOS?
+
+Not all of them. Several Pixel features depend on specific hardware components or Google's proprietary infrastructure, so they cannot be replicated in a third-party ROM.
+
+## Why is Quick Settings always black, even in light mode?
+
+By design. Google Pixel devices use a black Quick Settings panel in both light and dark themes, and PixelOS follows that same convention to stay true to the Pixel experience.
+
+## How do I flash PixelOS on my device?
+
+Visit the [download page](https://pixelos.net/download) and select your device. Flashing instructions are listed there. If instructions are missing, reach out to your device maintainer.
+
+## Is my device supported?
+
+Check the [official downloads page](https://pixelos.net/download). If your device is listed, it has or previously had an official build. If it is not listed, there is no official build. To get support added, ask an experienced developer to build it, or learn to build Android ROMs yourself.
+
+## Do I need to clean flash for updates?
+
+Only when required. If a clean flash is necessary, it will be stated in the release post on Telegram or in the changelog on the device page. Otherwise, a dirty flash is fine.
+
+## When is the next update?
+
+PixelOS is free and open-source software. Maintainers are volunteers — updates are released when they are ready.
+
+<Callout
+  type="warn"
+  title={`Asking for ETAs, or using phrases like "is an update coming soon?", is not acceptable in the community.`}
+/>
+
+## How is battery life?
+
+Battery life is highly individual. It varies based on screen brightness, signal strength, app behavior, usage patterns, and dozens of other factors. We cannot provide estimates or screen-on time figures.
+
+## How do I report a bug?
+
+Read the [bug reporting guide](/docs/guides/BugReport) to learn how to collect proper logs, then share them with your maintainer through the community channels.
+
+## Can I request a feature?
+
+No. We do not accept feature requests.
+
+## What is DFE, and why isn't it supported?
+
+DFE (Disable Force Encryption) decrypts the userdata partition. Android's boot process assumes encryption is active — removing it can cause race conditions between core services, resulting in subtle and difficult-to-reproduce bugs (broken camera, unexpected crashes, etc.).
+
+<Callout
+  type="warn"
+  title={`DFE is not supported Bug reports from decrypted devices are automatically dismissed.`}
+/>
+
+Encryption also has a practical security benefit: if your device is stolen, your data cannot be accessed without your PIN. There is no good reason to disable it.
+
+<Callout
+  type="info"
+  title={`"I need to wipe data every time I flash" is not a reason to use DFE — it's a reason to pick one ROM and daily-drive it.`}
+/>
+
+## Can I DM a maintainer or team member?
+
+No.
+
+## Why are there cat pictures everywhere?
+
+Because they are cute and adorable.

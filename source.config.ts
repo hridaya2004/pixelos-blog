@@ -21,6 +21,8 @@ export const docs = defineDocs({
     },
     schema: frontmatterSchema.safeExtend({
       authors: z.string().array().optional(),
+      footer: z.boolean().optional().default(true),
+      toc: z.boolean().optional().default(true),
     }),
   },
 });

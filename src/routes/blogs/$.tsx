@@ -23,7 +23,12 @@ const clientLoader = browserCollections.blogs.createClientLoader({
     // you can define props for the component
   ) {
     return (
-      <DocsPage toc={toc}>
+      <DocsPage
+        toc={toc}
+        footer={{
+          className: "[&>a]:rounded-2xl",
+        }}
+      >
         <DocsTitle className="text-4xl leading-12">{frontmatter.title}</DocsTitle>
         {frontmatter.authors && (
           <div className="inline-flex items-center gap-2">
