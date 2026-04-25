@@ -1,7 +1,8 @@
-import { cn } from "@/lib/cn";
-import { useIsMobile } from "@/lib/use-is-mobile";
 import { Link } from "@tanstack/react-router";
 import { Image } from "fumadocs-core/framework";
+
+import { cn } from "@/lib/cn";
+import { useIsMobile } from "@/lib/use-is-mobile";
 
 export const LatestBlog = () => {
   const isMobile = useIsMobile();

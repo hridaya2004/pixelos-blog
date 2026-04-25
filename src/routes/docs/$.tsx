@@ -1,16 +1,18 @@
+import { Suspense } from "react";
+
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { createServerFn } from "@tanstack/react-start";
-import { getDocPageMarkdownUrl, docSource } from "@/lib/source";
 import browserCollections from "collections/browser";
-import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
+import { useFumadocsLoader } from "fumadocs-core/source/client";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
+import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
+
+import { PageAuthors } from "@/components/github-contributor";
+import { DocsMDX } from "@/components/mdx";
 import { baseOptions } from "@/lib/layout.shared";
 import { parseSlugs } from "@/lib/shared";
-import { useFumadocsLoader } from "fumadocs-core/source/client";
-import { Suspense } from "react";
-import { DocsMDX } from "@/components/mdx";
-import { PageAuthors } from "@/components/github-contributor";
+import { getDocPageMarkdownUrl, docSource } from "@/lib/source";
 
 const clientLoader = browserCollections.docs.createClientLoader({
   component(

@@ -1,6 +1,7 @@
+import { redirect } from "@tanstack/react-router";
 import { createMiddleware, createStart } from "@tanstack/react-start";
 import { isMarkdownPreferred, rewritePath } from "fumadocs-core/negotiation";
-import { redirect } from "@tanstack/react-router";
+
 import {
   blogsContentRoute,
   blogsRoute,

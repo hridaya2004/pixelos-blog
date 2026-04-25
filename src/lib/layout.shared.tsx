@@ -1,6 +1,8 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { gitConfig } from "./shared";
+
 import { PixelOSLogo } from "@/assets/logo";
+
+import { gitConfig } from "./shared";
 
 export const baseOptions = (): BaseLayoutProps => ({
   githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,

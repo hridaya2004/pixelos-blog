@@ -1,5 +1,6 @@
-import { AnimatePresence, motion } from "motion/react";
 import type React from "react";
+
+import { AnimatePresence, motion } from "motion/react";
 
 export interface BlurRevealProps {
   children: string;

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+
 import { useTheme } from "next-themes";
+
 import AnimatedGradient from "./animated-gradient";
 import { BlurReveal } from "./blur-reveal";
 

@@ -1,16 +1,19 @@
-import { useMDXComponents } from "@/components/mdx";
-import { baseOptions } from "@/lib/layout.shared";
-import { parseSlugs } from "@/lib/shared";
-import { donateSource, getDonateMarkdownUrl } from "@/lib/source";
+import { Suspense } from "react";
+
+import type { ImageZoomProps } from "fumadocs-ui/components/image-zoom";
+
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import browserCollections from "collections/browser";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
-import type { ImageZoomProps } from "fumadocs-ui/components/image-zoom";
 import { ImageZoom } from "fumadocs-ui/components/image-zoom";
 import { DocsBody } from "fumadocs-ui/layouts/docs/page";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
-import { Suspense } from "react";
+
+import { useMDXComponents } from "@/components/mdx";
+import { baseOptions } from "@/lib/layout.shared";
+import { parseSlugs } from "@/lib/shared";
+import { donateSource, getDonateMarkdownUrl } from "@/lib/source";
 
 // oxlint-disable-next-line typescript/no-explicit-any
 const PageMDX = ({ MDX }: { MDX: React.ComponentType<{ components: any }> }) => (

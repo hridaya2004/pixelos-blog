@@ -1,7 +1,9 @@
-import { blogSource, docSource, donateSource } from "@/lib/source";
-import { createFileRoute } from "@tanstack/react-router";
 import type { StructuredData } from "fumadocs-core/mdx-plugins";
+
+import { createFileRoute } from "@tanstack/react-router";
 import { createSearchAPI } from "fumadocs-core/search/server";
+
+import { blogSource, docSource, donateSource } from "@/lib/source";
 
 interface IndexablePage {
   url: string;

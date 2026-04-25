@@ -1,7 +1,9 @@
 import type { InferPageType } from "fumadocs-core/source";
-import { loader } from "fumadocs-core/source";
+
 import { blogs, docs, donate } from "collections/server";
+import { loader } from "fumadocs-core/source";
 import { lucideIconsPlugin } from "fumadocs-core/source/lucide-icons";
+
 import {
   blogsRoute,
   blogsContentRoute,

@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
-import { baseOptions } from "@/lib/layout.shared";
+
+import { LandingPage } from "@/components/landing-page";
 import { LatestBlog } from "@/components/latest-blog";
 import { MaintainershipRedirection } from "@/components/maintainership-redirection-card";
-import { LandingPage } from "@/components/landing-page";
+import { baseOptions } from "@/lib/layout.shared";
 
 const Home = () => (
   <HomeLayout {...baseOptions()}>
