@@ -17,6 +17,7 @@
   "dependencies": {
     "@fontsource-variable/google-sans-code": "^5.2.4",
     "@fontsource-variable/google-sans-flex": "^5.2.3",
+    "@fumadocs/mdx-remote": "^1.4.9",
     "@radix-ui/react-avatar": "^1.1.11",
     "@tanstack/react-router": "1.168.24",
     "@tanstack/react-router-devtools": "1.166.13",
