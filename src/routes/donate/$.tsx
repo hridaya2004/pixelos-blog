@@ -18,7 +18,7 @@ const PageMDX = ({ MDX }: { MDX: React.ComponentType<{ components: any }> }) => 
     components={useMDXComponents({
       img: (props: ImageZoomProps) => <ImageZoom className="w-25 rounded-none!" {...props} />,
       table: ({ children, ...props }) => (
-        <div className="relative overflow-auto prose-no-margin my-6">
+        <div className="prose-no-margin relative my-6 overflow-auto">
           <table className="w-auto" {...props}>
             {children}
           </table>

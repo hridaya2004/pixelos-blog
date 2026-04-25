@@ -31,8 +31,8 @@ export const MaintainershipRedirection = () => {
   };
 
   return (
-    <div className="border relative flex items-center justify-center border-fd-border overflow-hidden rounded-3xl h-75">
-      <div className="p-8 text-3xl text-center">
+    <div className="border-fd-border relative flex h-75 items-center justify-center overflow-hidden rounded-3xl border">
+      <div className="p-8 text-center text-3xl">
         <AnimatedGradient config={{ preset: "custom", ...params }} />
         <BlurReveal inView speedReveal={2}>
           Do you want to become a part of team?

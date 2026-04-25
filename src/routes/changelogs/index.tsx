@@ -4,7 +4,7 @@ import { HomeLayout } from "fumadocs-ui/layouts/home";
 
 const Changelogs = () => (
   <HomeLayout {...baseOptions()}>
-    <div className="container px-4 mx-auto grid grid-cols-1 gap-4  min-h-0 py-8" />
+    <div className="container mx-auto grid min-h-0 grid-cols-1 gap-4 px-4 py-8" />
   </HomeLayout>
 );
 

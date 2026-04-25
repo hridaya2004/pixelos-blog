@@ -15,7 +15,7 @@ code {
 }
 
 code:not(:has(span)) {
-  @apply font-medium text-[90%] leading-[1em] bg-fd-accent/50 border-fd-muted-foreground/20 wrap-break-word;
+  @apply bg-fd-accent/50 border-fd-muted-foreground/20 text-[90%] leading-[1em] font-medium wrap-break-word;
 }
 
 img {

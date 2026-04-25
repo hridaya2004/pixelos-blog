@@ -33,7 +33,7 @@ const clientLoader = browserCollections.docs.createClientLoader({
             Table of Contents
           </InlineTOC>
         )}
-        <DocsBody className="border border-fd-accent shadow-2xs shadow-fd-accent rounded-3xl p-6">
+        <DocsBody className="border-fd-accent shadow-fd-accent rounded-3xl border p-6 shadow-2xs">
           <DocsMDX MDX={MDX} />
         </DocsBody>
       </DocsPage>
