@@ -1,0 +1,98 @@
+---
+title: Rooting and SafetyNet
+description: How to root your PixelOS device with Magisk and pass SafetyNet on rooted builds.
+---
+
+## Rooting
+
+<Callout type="info" title="INFO">
+  These instructions assume your device has an unlocked bootloader running PixelOS with PixelOS Recovery installed.
+
+    - Commands can be run on Windows CMD, PowerShell, Bash, or macOS Terminal.
+    - Enable **USB Debugging** from **Settings > Developer Options**.
+    - You may use the volume keys to navigate PixelOS Recovery if touch does not work.
+
+</Callout>
+
+### From PC
+
+1. Set up ADB and Fastboot — see the [LineageOS Wiki](https://wiki.lineageos.org/adb_fastboot_guide#installing-adb-and-fastboot) for instructions.
+2. Download the [latest Magisk APK](https://github.com/topjohnwu/Magisk/releases/latest) and save it to your ADB folder.
+3. Rename the file from `Magisk-vxx.x.apk` to `Magisk-vxx.x.zip`.
+4. Connect your device to your computer and verify the connection:
+
+```sh
+adb devices
+```
+
+5. Reboot into recovery:
+
+```sh
+adb reboot recovery
+```
+
+6. On the PixelOS Recovery screen, select **Apply Update > Apply from ADB**.
+7. Sideload the Magisk installer:
+
+```sh
+adb sideload path/to/Magisk-vxx.x.zip
+```
+
+![ADB Sideload](https://github.com/PixelOS-Devices/stuff/raw/main/RootGuide/9.png) 8. If prompted with **Signature verification failed**, select **Yes** to proceed. 9. Wait for the installation to complete — you'll see confirmation in the terminal and on your device.
+
+![Installation complete](https://github.com/PixelOS-Devices/stuff/raw/main/RootGuide/11.png)
+
+10. Unplug your device, go back to the main menu, and select **Reboot system now**.
+11. Once PixelOS boots, open the Magisk app and follow the on-screen instructions.
+
+Your device is now rooted.
+
+### From SD card
+
+1. Download the [latest Magisk APK](https://github.com/topjohnwu/Magisk/releases/latest) to your SD card.
+2. Rename the file from `Magisk-vxx.x.apk` to `Magisk-vxx.x.zip`.
+3. Boot into recovery by holding **Volume Up + Power** (this combination may vary by device).
+4. On the PixelOS Recovery screen, select **Apply Update > Choose from sdcard1**.
+5. Select `Magisk-vxx.x.zip`.
+6. If prompted with **Signature verification failed**, select **Yes** to proceed.
+7. Wait for the installation to complete.
+8. Go back to the main menu and select **Reboot system now**.
+9. Once PixelOS boots, open the Magisk app and follow the on-screen instructions.
+
+Your device is now rooted.
+
+---
+
+## SafetyNet
+
+<Callout type="error" title="WARNING">
+  The SafetyNet Attestation API is deprecated and has been replaced by the Play Integrity API.
+</Callout>
+
+SafetyNet passes by default on all PixelOS builds. If you have rooted your device, follow the steps below to restore SafetyNet attestation.
+
+1. Download [kdrag0n's Universal SafetyNet Fix](https://github.com/kdrag0n/safetynet-fix/releases/latest) to your device.
+2. Open the Magisk app and tap the gear icon in the top-right corner.
+
+   ![Magisk settings](https://github.com/PixelOS-Devices/stuff/raw/main/RootGuide/magiskApp.png)
+
+3. Scroll down to the **Magisk** section and enable both **Zygisk** and **Enforce DenyList**. You can dismiss the reboot toast for now.
+
+   ![Zygisk and DenyList settings](https://github.com/PixelOS-Devices/stuff/raw/main/RootGuide/ZygiskDenyList.png)
+
+4. Go back and select **Modules**.
+
+   ![Modules screen](https://github.com/PixelOS-Devices/stuff/raw/main/RootGuide/MagiskModules.png)
+
+5. Select the SafetyNet Fix file you downloaded and wait for the installation to finish.
+
+   ![SafetyNet Fix installed](https://github.com/PixelOS-Devices/stuff/raw/main/RootGuide/SafetyNetFixInstall.png)
+
+6. Tap the **Reboot** button in the bottom-right corner.
+
+Once your device reboots, SafetyNet should pass.
+
+<Callout type="warn" title="INFO">
+  Some apps may still detect root. Try adding them to the DenyList. If an app continues to break
+  despite this, there is unfortunately nothing more that can be done.
+</Callout>

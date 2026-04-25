@@ -35,10 +35,10 @@ Only when required. If a clean flash is necessary, it will be stated in the rele
 
 PixelOS is free and open-source software. Maintainers are volunteers — updates are released when they are ready.
 
-<Callout
-  type="warn"
-  title={`Asking for ETAs, or using phrases like "is an update coming soon?", is not acceptable in the community.`}
-/>
+<Callout type="warn" title="Asking for ETAs">
+  Asking for ETAs, or using phrases like "is an update coming soon?", is not acceptable in the
+  community.
+</Callout>
 
 ## How is battery life?
 
@@ -46,7 +46,7 @@ Battery life is highly individual. It varies based on screen brightness, signal 
 
 ## How do I report a bug?
 
-Read the [bug reporting guide](/docs/guides/BugReport) to learn how to collect proper logs, then share them with your maintainer through the community channels.
+Read the [bug reporting guide](/docs/users/guide/report-bug) to learn how to collect proper logs, then share them with your maintainer through the community channels.
 
 ## Can I request a feature?
 
@@ -56,17 +56,16 @@ No. We do not accept feature requests.
 
 DFE (Disable Force Encryption) decrypts the userdata partition. Android's boot process assumes encryption is active — removing it can cause race conditions between core services, resulting in subtle and difficult-to-reproduce bugs (broken camera, unexpected crashes, etc.).
 
-<Callout
-  type="warn"
-  title={`DFE is not supported Bug reports from decrypted devices are automatically dismissed.`}
-/>
+<Callout type="warn" title="DFE is not supported.">
+  Bug reports from decrypted devices are automatically dismissed.
+</Callout>
 
 Encryption also has a practical security benefit: if your device is stolen, your data cannot be accessed without your PIN. There is no good reason to disable it.
 
-<Callout
-  type="info"
-  title={`"I need to wipe data every time I flash" is not a reason to use DFE — it's a reason to pick one ROM and daily-drive it.`}
-/>
+<Callout type="info" title="INFO">
+  "I need to wipe data every time I flash" is not a reason to use DFE — it's a reason to pick one
+  ROM and daily-drive it.
+</Callout>
 
 ## Can I DM a maintainer or team member?
 

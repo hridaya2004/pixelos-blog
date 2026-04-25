@@ -1,0 +1,130 @@
+---
+title: Capture logs
+description: Learn how to capture logcat, dmesg, and ramoops logs to help developers diagnose issues with PixelOS.
+---
+
+When you run into a bug, developers often need a log to diagnose it. This page explains the types of logs and how to capture them.
+
+## Log types
+
+| Log              | What it captures                                                                |
+| ---------------- | ------------------------------------------------------------------------------- |
+| **Logcat**       | App crashes and system behavior                                                 |
+| **Radio logcat** | Phone call errors and radio stack                                               |
+| **dmesg**        | Kernel subsystem activity                                                       |
+| **Ramoops**      | Kernel log from before an unexpected reboot (also called `last_kmsg` or pstore) |
+
+<Callout type="warn" title="Asking for bug fixes">
+  Reporting a bug does not obligate maintainers to fix it on any timeline. Harassment or pressure
+  toward maintainers will result in removal from the community.
+</Callout>
+
+---
+
+## Method 1: Using an app
+
+### Logcat
+
+1. Install a logcat app from the Play Store. This guide uses [Matlog](https://github.com/pluscubed/matlog).
+2. Open the app and grant root access. If your device is not rooted, use [ADB](#method-2-using-adb) instead.
+3. Tap the three-dot menu and select **Clear** to flush the buffer.
+4. Go to **⋮ > Settings > Log Buffer(s)** and select **main**, **radio**, or both depending on your issue.
+5. Tap **⋮ > File > Record**.
+6. Reproduce the issue.
+7. Tap the stop button in the bottom-right corner.
+8. Share the generated log file with your developer.
+
+### dmesg
+
+1. Install a terminal emulator.
+2. Run `su` to switch to the root user.
+3. Run `dmesg > /sdcard/dmesg.log`.
+4. Share `/sdcard/dmesg.log` with your developer.
+
+### Ramoops (from a booted device)
+
+1. Open a file manager and navigate to `/sys/fs/pstore`.
+2. Copy `console-ramoops` or `console-ramoops-0` to `/sdcard`.
+3. Share the file with your kernel developer.
+
+### Ramoops (from recovery)
+
+1. Immediately after an unexpected reboot, hold the volume buttons to boot into recovery.
+2. In TWRP, go to **Advanced > File Manager**.
+3. Navigate to `/sys/fs/pstore` and copy `console-ramoops` or `console-ramoops-0` to `/sdcard`.
+4. Share the file with your kernel developer.
+
+---
+
+## Method 2: Using ADB
+
+### Step 1: Install ADB
+
+Install ADB using your package manager or download platform tools directly from Google.
+
+**Windows**
+
+```powershell
+winget install -e --id Google.PlatformTools
+```
+
+[Download for Windows](https://dl.google.com/android/repository/platform-tools-latest-windows.zip)
+
+**macOS**
+
+```bash
+brew install android-platform-tools
+```
+
+[Download for macOS](https://dl.google.com/android/repository/platform-tools-latest-darwin.zip)
+
+**Linux**
+
+[Download for Linux](https://dl.google.com/android/repository/platform-tools-latest-linux.zip)
+
+### Step 2: Connect your device
+
+1. Enable **USB debugging** under **Settings > Developer Options**.
+2. Plug in your device and accept the debugging prompt.
+3. Verify the connection:
+
+```bash
+adb devices
+```
+
+### Step 3: Capture the log
+
+Clear the buffer first:
+
+```bash
+adb logcat -c
+```
+
+Then capture the log you need:
+
+```bash
+# Logcat
+adb logcat -d > logcat.log
+
+# dmesg
+adb shell dmesg > dmesg.log
+```
+
+Share the output file with your developer.
+
+---
+
+## Bug reporting etiquette
+
+Keep the following in mind when submitting a report:
+
+- **Be patient.** For most maintainers this is a hobby. There is no SLA on bug fixes.
+- **Be specific.** Describe the issue clearly and include steps to reproduce it.
+- **Show your work.** List what you have already tried so developers do not have to ask.
+- **Provide context.** Note whether the issue existed in a previous build or on a different ROM.
+- **Suggest a fix if you can.** If you have identified a relevant commit or patch, include it. Developers appreciate having a starting point.
+
+<Callout type="info">
+  A good report looks like: *"YouTube force-closes on every launch after a clean flash."* A bad one
+  looks like: *"My phone is broken, please help."*
+</Callout>
