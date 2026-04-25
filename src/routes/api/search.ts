@@ -1,9 +1,31 @@
-import { blogSource } from "@/lib/source";
+import { blogSource, docSource, donateSource } from "@/lib/source";
 import { createFileRoute } from "@tanstack/react-router";
-import { createFromSource } from "fumadocs-core/search/server";
+import { createSearchAPI } from "fumadocs-core/search/server";
 
-const server = createFromSource(blogSource, {
-  // https://docs.orama.com/docs/orama-js/supported-languages
+const server = createSearchAPI("advanced", {
+  indexes: () => [
+    ...blogSource.getPages().map((page) => ({
+      description: page.data.description,
+      id: page.url,
+      structuredData: page.data.structuredData,
+      title: page.data.title,
+      url: page.url,
+    })),
+    ...docSource.getPages().map((page) => ({
+      description: page.data.description,
+      id: page.url,
+      structuredData: page.data.structuredData,
+      title: page.data.title,
+      url: page.url,
+    })),
+    ...donateSource.getPages().map((page) => ({
+      description: page.data.description,
+      id: page.url,
+      structuredData: page.data.structuredData,
+      title: page.data.title,
+      url: page.url,
+    })),
+  ],
   language: "english",
 });
 
