@@ -1,4 +1,3 @@
-// oxlint-disable react/no-array-index-key
 import { AnimatePresence, motion } from "motion/react";
 import type React from "react";
 

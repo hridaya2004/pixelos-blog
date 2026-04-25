@@ -13,7 +13,6 @@ import { GithubContributors } from "@/components/github-contributor";
 
 // oxlint-disable-next-line typescript/no-explicit-any
 const DocsMDX = ({ MDX }: { MDX: React.ComponentType<{ components: any }> }) => (
-  // oxlint-disable-next-line react/jsx-pascal-case
   <MDX components={useMDXComponents()} />
 );
 

@@ -13,7 +13,6 @@ import { Suspense } from "react";
 
 // oxlint-disable-next-line typescript/no-explicit-any
 const PageMDX = ({ MDX }: { MDX: React.ComponentType<{ components: any }> }) => (
-  // oxlint-disable-next-line react/jsx-pascal-case
   <MDX
     components={useMDXComponents({
       img: (props: ImageZoomProps) => <ImageZoom className="w-25 rounded-none!" {...props} />,
