@@ -10,87 +10,36 @@ import {
   donateRoute,
 } from "@/lib/shared";
 
-const { rewrite: rewriteBlogs } = rewritePath(
-  `${blogsRoute}{/*path}`,
-  `${blogsContentRoute}{/*path}/content.md`,
-);
-const { rewrite: rewriteBlogsSuffix } = rewritePath(
-  `${blogsRoute}{/*path}.mdx`,
-  `${blogsContentRoute}{/*path}/content.md`,
-);
+interface RouteRewrites {
+  markdown: ReturnType<typeof rewritePath>["rewrite"];
+  suffix: ReturnType<typeof rewritePath>["rewrite"];
+}
 
-const { rewrite: rewriteDocs } = rewritePath(
-  `${docsRoute}{/*path}`,
-  `${docsContentRoute}{/*path}/content.md`,
-);
-const { rewrite: rewriteDocsSuffix } = rewritePath(
-  `${docsRoute}{/*path}.mdx`,
-  `${docsContentRoute}{/*path}/content.md`,
-);
-
-const { rewrite: rewriteDonate } = rewritePath(
-  `${donateRoute}{/*path}`,
-  `${donateContentRoute}{/*path}/content.md`,
-);
-const { rewrite: rewriteDonateSuffix } = rewritePath(
-  `${donateRoute}{/*path}.mdx`,
-  `${donateContentRoute}{/*path}/content.md`,
-);
-
-const llmBlogsMiddleware = createMiddleware().server(({ next, request }) => {
-  const url = new URL(request.url);
-  const path = rewriteBlogsSuffix(url.pathname);
-
-  if (path) {
-    throw redirect(new URL(path, url));
-  }
-
-  if (isMarkdownPreferred(request)) {
-    const docsPath = rewriteBlogs(url.pathname);
-    if (docsPath) {
-      throw redirect(new URL(docsPath, url));
-    }
-  }
-
-  return next();
+const createRouteRewrites = (route: string, contentRoute: string): RouteRewrites => ({
+  markdown: rewritePath(`${route}{/*path}`, `${contentRoute}{/*path}/content.md`).rewrite,
+  suffix: rewritePath(`${route}{/*path}.mdx`, `${contentRoute}{/*path}/content.md`).rewrite,
 });
 
-const llmDocsMiddleware = createMiddleware().server(({ next, request }) => {
-  const url = new URL(request.url);
-  const path = rewriteDocsSuffix(url.pathname);
-
-  if (path) {
-    throw redirect(new URL(path, url));
-  }
-
-  if (isMarkdownPreferred(request)) {
-    const docsPath = rewriteDocs(url.pathname);
-    if (docsPath) {
-      throw redirect(new URL(docsPath, url));
+const createLlmMiddleware = (rewrites: RouteRewrites) =>
+  createMiddleware().server(({ next, request }) => {
+    const url = new URL(request.url);
+    const path = rewrites.suffix(url.pathname);
+    if (path) {
+      throw redirect(new URL(path, url));
     }
-  }
-
-  return next();
-});
-
-const llmDonateMiddleware = createMiddleware().server(({ next, request }) => {
-  const url = new URL(request.url);
-  const path = rewriteDonateSuffix(url.pathname);
-
-  if (path) {
-    throw redirect(new URL(path, url));
-  }
-
-  if (isMarkdownPreferred(request)) {
-    const docsPath = rewriteDonate(url.pathname);
-    if (docsPath) {
-      throw redirect(new URL(docsPath, url));
+    if (isMarkdownPreferred(request)) {
+      const docsPath = rewrites.markdown(url.pathname);
+      if (docsPath) {
+        throw redirect(new URL(docsPath, url));
+      }
     }
-  }
-
-  return next();
-});
+    return next();
+  });
 
 export const startInstance = createStart(() => ({
-  requestMiddleware: [llmBlogsMiddleware, llmDocsMiddleware, llmDonateMiddleware],
+  requestMiddleware: [
+    createLlmMiddleware(createRouteRewrites(blogsRoute, blogsContentRoute)),
+    createLlmMiddleware(createRouteRewrites(docsRoute, docsContentRoute)),
+    createLlmMiddleware(createRouteRewrites(donateRoute, donateContentRoute)),
+  ],
 }));

@@ -6,15 +6,11 @@ import browserCollections from "collections/browser";
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 import { baseOptions } from "@/lib/layout.shared";
+import { parseSlugs } from "@/lib/shared";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
 import { Suspense } from "react";
-import { useMDXComponents } from "@/components/mdx";
-import { GithubContributors } from "@/components/github-contributor";
-
-// oxlint-disable-next-line typescript/no-explicit-any
-const DocsMDX = ({ MDX }: { MDX: React.ComponentType<{ components: any }> }) => (
-  <MDX components={useMDXComponents()} />
-);
+import { DocsMDX } from "@/components/mdx";
+import { PageAuthors } from "@/components/github-contributor";
 
 const clientLoader = browserCollections.docs.createClientLoader({
   component(
@@ -30,12 +26,7 @@ const clientLoader = browserCollections.docs.createClientLoader({
         }}
       >
         <DocsTitle className="text-4xl leading-12">{frontmatter.title}</DocsTitle>
-        {frontmatter.authors && (
-          <div className="inline-flex items-center gap-2">
-            {frontmatter.authors.length > 1 ? <span>Authors: </span> : <span>Author: </span>}
-            <GithubContributors users={frontmatter.authors} />
-          </div>
-        )}
+        <PageAuthors authors={frontmatter.authors} />
         <DocsDescription>{frontmatter.description}</DocsDescription>
         {frontmatter.toc && (
           <InlineTOC className="rounded-3xl" items={toc}>
@@ -81,7 +72,7 @@ const Page = () => {
 export const Route = createFileRoute("/docs/$")({
   component: Page,
   loader: async ({ params }) => {
-    const slugs = params._splat?.split("/") ?? [];
+    const slugs = parseSlugs(params._splat);
     const data = await serverLoader({ data: slugs });
     await clientLoader.preload(data.path);
     return data;

@@ -18,3 +18,5 @@ export const gitConfig = {
   repo: "blog",
   user: "PixelOS-AOSP",
 };
+
+export const parseSlugs = (splat: string | undefined): string[] => splat?.split("/") ?? [];

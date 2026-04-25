@@ -29,32 +29,20 @@ export const donateSource = loader({
   source: donate.toFumadocsSource(),
 });
 
-export const getBlogPageMarkdownUrl = (page: InferPageType<typeof blogSource>) => {
-  const segments = [...page.slugs, "content.md"];
+export type BlogPage = InferPageType<typeof blogSource>;
+export type DocPage = InferPageType<typeof docSource>;
+export type DonatePage = InferPageType<typeof donateSource>;
 
-  return {
-    segments,
-    url: `${blogsContentRoute}/${segments.join("/")}`,
+const makeMarkdownUrlGetter =
+  (contentRoute: string) =>
+  <T extends { slugs: string[] }>(page: T) => {
+    const segments = [...page.slugs, "content.md"];
+    return { segments, url: `${contentRoute}/${segments.join("/")}` };
   };
-};
 
-export const getDocPageMarkdownUrl = (page: InferPageType<typeof docSource>) => {
-  const segments = [...page.slugs, "content.md"];
-
-  return {
-    segments,
-    url: `${docsContentRoute}/${segments.join("/")}`,
-  };
-};
-
-export const getDonateMarkdownUrl = (page: InferPageType<typeof donateSource>) => {
-  const segments = [...page.slugs, "content.md"];
-
-  return {
-    segments,
-    url: `${donateContentRoute}/${segments.join("/")}`,
-  };
-};
+export const getBlogPageMarkdownUrl = makeMarkdownUrlGetter(blogsContentRoute);
+export const getDocPageMarkdownUrl = makeMarkdownUrlGetter(docsContentRoute);
+export const getDonateMarkdownUrl = makeMarkdownUrlGetter(donateContentRoute);
 
 export const getLLMText = async (page: InferPageType<typeof blogSource>) => {
   const processed = await page.data.getText("processed");

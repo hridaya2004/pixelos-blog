@@ -14,3 +14,19 @@ export const GithubContributors = ({ users }: GithubContributorsProps) => (
     ))}
   </AvatarGroup>
 );
+
+interface PageAuthorsProps {
+  authors?: string[];
+}
+
+export const PageAuthors = ({ authors }: PageAuthorsProps) => {
+  if (!authors) {
+    return null;
+  }
+  return (
+    <div className="inline-flex items-center gap-2">
+      <span>{authors.length > 1 ? "Authors: " : "Author: "}</span>
+      <GithubContributors users={authors} />
+    </div>
+  );
+};

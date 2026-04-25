@@ -1,5 +1,6 @@
 import { useMDXComponents } from "@/components/mdx";
 import { baseOptions } from "@/lib/layout.shared";
+import { parseSlugs } from "@/lib/shared";
 import { donateSource, getDonateMarkdownUrl } from "@/lib/source";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -72,7 +73,7 @@ const Donate = () => {
 export const Route = createFileRoute("/donate/$")({
   component: Donate,
   loader: async ({ params }) => {
-    const slugs = params._splat?.split("/") ?? [];
+    const slugs = parseSlugs(params._splat);
     const data = await serverLoader({ data: slugs });
     await clientLoader.preload(data.path);
     return data;
