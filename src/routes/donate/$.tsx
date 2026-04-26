@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 
 import type { ImageZoomProps } from "fumadocs-ui/components/image-zoom";
-import type { LinkItemType } from "fumadocs-ui/layouts/shared";
 
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -12,7 +11,7 @@ import { DocsBody } from "fumadocs-ui/layouts/docs/page";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 
 import { useMDXComponents } from "@/components/mdx";
-import { baseOptions } from "@/lib/layout.shared";
+import { baseOptions, linkItems, menuMappedLinkItems } from "@/lib/layout.shared";
 import { parseSlugs } from "@/lib/shared";
 import { donateSource, getDonateMarkdownUrl } from "@/lib/source";
 
@@ -67,12 +66,9 @@ const serverLoader = createServerFn({
 const Donate = () => {
   // oxlint-disable-next-line no-use-before-define
   const { path } = useFumadocsLoader(Route.useLoaderData());
-  const options = baseOptions();
-  const mappedLinks: LinkItemType[] =
-    options.links?.map((link) => (link.on === "nav" ? { ...link, on: "menu" } : link)) ?? [];
 
   return (
-    <HomeLayout {...options} links={[...(options.links ?? []), ...mappedLinks]}>
+    <HomeLayout {...baseOptions()} links={[...(linkItems ?? []), ...menuMappedLinkItems]}>
       <Suspense>{clientLoader.useContent(path)}</Suspense>
     </HomeLayout>
   );

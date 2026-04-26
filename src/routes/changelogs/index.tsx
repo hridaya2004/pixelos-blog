@@ -1,7 +1,5 @@
 import { use, useMemo, Suspense } from "react";
 
-import type { LinkItemType } from "fumadocs-ui/layouts/shared";
-
 import { createCompiler } from "@fumadocs/mdx-remote";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -10,7 +8,7 @@ import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layo
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 
 import { DocsMDX } from "@/components/mdx";
-import { baseOptions } from "@/lib/layout.shared";
+import { baseOptions, linkItems, menuMappedLinkItems } from "@/lib/layout.shared";
 
 const CHANGELOG_URL =
   "https://raw.githubusercontent.com/PixelOS-AOSP/changelogs_generator/refs/heads/main/changelogs.mdx";
@@ -49,12 +47,9 @@ const MDXContent = ({ source }: { source: string }) => {
 const Changelogs = () => {
   // oxlint-disable-next-line no-use-before-define
   const { source, frontmatter } = Route.useLoaderData() as LoaderData;
-  const options = baseOptions();
-  const mappedLinks: LinkItemType[] =
-    options.links?.map((link) => (link.on === "nav" ? { ...link, on: "menu" } : link)) ?? [];
 
   return (
-    <HomeLayout {...options} links={[...(options.links ?? []), ...mappedLinks]}>
+    <HomeLayout {...baseOptions()} links={[...(linkItems ?? []), ...menuMappedLinkItems]}>
       <DocsLayout
         tree={{ children: [], name: "Changelogs" }}
         nav={{

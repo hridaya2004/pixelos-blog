@@ -1,4 +1,4 @@
-import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import type { BaseLayoutProps, LinkItemType } from "fumadocs-ui/layouts/shared";
 
 import { PixelOSLogo } from "@/assets/logo";
 import { Telegram } from "@/assets/telegram";
@@ -62,3 +62,8 @@ export const baseOptions = (): BaseLayoutProps => ({
     transparentMode: "top",
   },
 });
+
+export const linkItems = baseOptions().links;
+
+export const menuMappedLinkItems: LinkItemType[] =
+  linkItems?.map((link) => (link.on === "nav" ? { ...link, on: "menu" } : link)) ?? [];
