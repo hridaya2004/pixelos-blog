@@ -1,6 +1,8 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 
 import { PixelOSLogo } from "@/assets/logo";
+import { Telegram } from "@/assets/telegram";
+import { XformerlyTwitter } from "@/assets/twitter";
 
 import { gitConfig } from "./shared";
 
@@ -36,6 +38,22 @@ export const baseOptions = (): BaseLayoutProps => ({
       on: "nav",
       text: "Donate",
       url: "/donate",
+    },
+    {
+      external: true,
+      icon: <Telegram />,
+      on: "nav",
+      text: "Telegram",
+      type: "icon",
+      url: "https://t.me/PixelOSOfficial",
+    },
+    {
+      external: true,
+      icon: <XformerlyTwitter />,
+      on: "nav",
+      text: "X",
+      type: "icon",
+      url: "https://x.com/PixelOSROM",
     },
   ],
   nav: {
