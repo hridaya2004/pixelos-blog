@@ -4,6 +4,12 @@
 @import "@fontsource-variable/google-sans-flex/wght.css";
 @import "@fontsource-variable/google-sans-code/wght.css";
 
+@utility commit-hash {
+  font-family: "Google Sans Code Variable", monospace;
+  @apply bg-fd-accent/50 border-fd-muted-foreground/20 border text-[90%] leading-[1em] font-medium wrap-break-word;
+  @apply rounded-md p-0.75 no-underline;
+}
+
 html {
   @apply scroll-smooth;
   scrollbar-gutter: stable;
