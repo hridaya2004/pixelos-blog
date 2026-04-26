@@ -19,6 +19,8 @@
     "@fontsource-variable/google-sans-flex": "^5.2.3",
     "@fumadocs/mdx-remote": "^1.4.9",
     "@radix-ui/react-avatar": "^1.1.11",
+    "@tanstack/devtools-vite": "^0.6.0",
+    "@tanstack/react-devtools": "^0.10.2",
     "@tanstack/react-router": "1.168.24",
     "@tanstack/react-router-devtools": "1.166.13",
     "@tanstack/react-start": "1.167.48",

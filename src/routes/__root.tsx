@@ -1,3 +1,4 @@
+import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 
@@ -11,6 +12,7 @@ const RootComponent = () => (
     <body className="flex min-h-screen flex-col">
       <RootProvider>
         <Outlet />
+        <TanStackDevtools />
       </RootProvider>
       <Scripts />
     </body>
