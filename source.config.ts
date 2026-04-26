@@ -9,6 +9,7 @@ export const blogs = defineDocs({
     },
     schema: frontmatterSchema.safeExtend({
       authors: z.string().array().optional(),
+      banner: z.httpUrl().optional(),
     }),
   },
 });
