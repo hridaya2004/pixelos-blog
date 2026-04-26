@@ -60,7 +60,7 @@ const Changelogs = () => {
         <DocsPage footer={{ enabled: false }}>
           <DocsTitle className="text-4xl leading-12">{frontmatter.title}</DocsTitle>
           <DocsDescription>{frontmatter.description}</DocsDescription>
-          <DocsBody className={`[&_p_a[href^="https://"]]:commit-hash mx-auto`}>
+          <DocsBody className={`[&_p_a[href^="https://"]]:commit-hash px-2`}>
             <Suspense fallback={<div>Loading...</div>}>
               <MDXContent source={source} />
             </Suspense>
