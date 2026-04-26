@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import type { ImageZoomProps } from "fumadocs-ui/components/image-zoom";
+import type { LinkItemType } from "fumadocs-ui/layouts/shared";
 
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -66,9 +67,12 @@ const serverLoader = createServerFn({
 const Donate = () => {
   // oxlint-disable-next-line no-use-before-define
   const { path } = useFumadocsLoader(Route.useLoaderData());
+  const options = baseOptions();
+  const mappedLinks: LinkItemType[] =
+    options.links?.map((link) => (link.on === "nav" ? { ...link, on: "menu" } : link)) ?? [];
 
   return (
-    <HomeLayout {...baseOptions()}>
+    <HomeLayout {...options} links={[...(options.links ?? []), ...mappedLinks]}>
       <Suspense>{clientLoader.useContent(path)}</Suspense>
     </HomeLayout>
   );

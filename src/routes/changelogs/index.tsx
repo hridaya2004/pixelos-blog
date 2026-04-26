@@ -1,5 +1,7 @@
 import { use, useMemo, Suspense } from "react";
 
+import type { LinkItemType } from "fumadocs-ui/layouts/shared";
+
 import { createCompiler } from "@fumadocs/mdx-remote";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -47,10 +49,19 @@ const MDXContent = ({ source }: { source: string }) => {
 const Changelogs = () => {
   // oxlint-disable-next-line no-use-before-define
   const { source, frontmatter } = Route.useLoaderData() as LoaderData;
+  const options = baseOptions();
+  const mappedLinks: LinkItemType[] =
+    options.links?.map((link) => (link.on === "nav" ? { ...link, on: "menu" } : link)) ?? [];
 
   return (
-    <HomeLayout {...baseOptions()}>
-      <DocsLayout tree={{ children: [], name: "Changelogs" }} sidebar={{ enabled: false }}>
+    <HomeLayout {...options} links={[...(options.links ?? []), ...mappedLinks]}>
+      <DocsLayout
+        tree={{ children: [], name: "Changelogs" }}
+        nav={{
+          enabled: false,
+        }}
+        sidebar={{ enabled: false }}
+      >
         <DocsPage footer={{ enabled: false }}>
           <DocsTitle className="text-4xl leading-12">{frontmatter.title}</DocsTitle>
           <DocsDescription>{frontmatter.description}</DocsDescription>
