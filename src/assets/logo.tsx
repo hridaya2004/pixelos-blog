@@ -1,4 +1,6 @@
-export const PixelOSLogo = ({ className }: { className?: string }) => (
+import type { SVGProps } from "react";
+
+export const PixelOSLogo = ({ className, ...props }: SVGProps<SVGSVGElement>) => (
   <svg
     id="Layer_1"
     data-name="Layer 1"
@@ -8,6 +10,7 @@ export const PixelOSLogo = ({ className }: { className?: string }) => (
     fill="currentColor"
     width={24}
     height={24}
+    {...props}
   >
     <path d="M535,618.61a28,28,0,0,0,30.57,27.89C727.65,631.54,840,491.73,840,327S727.73,31.41,565.73,15.45A28,28,0,0,0,535,43.32Z" />
     <path d="M443.39,14h0A28.61,28.61,0,0,1,472,42.61v670A282.39,282.39,0,0,1,189.61,995h0A28.61,28.61,0,0,1,161,966.39v-670A282.39,282.39,0,0,1,443.39,14Z" />
