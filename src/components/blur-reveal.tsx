@@ -16,6 +16,7 @@ export interface BlurRevealProps {
   inView?: boolean;
   once?: boolean;
   letterSpacing?: string | number;
+  href?: string;
 }
 
 export const BlurReveal = ({
@@ -32,8 +33,11 @@ export const BlurReveal = ({
   inView = false,
   once = true,
   letterSpacing,
+  href,
 }: BlurRevealProps) => {
-  const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
+  const MotionTag = href
+    ? (motion[as as keyof typeof motion] as typeof motion.a)
+    : (motion[as as keyof typeof motion] as typeof motion.div);
 
   const stagger = 0.03 / speedReveal;
   const baseDuration = 0.3 / speedSegment;
@@ -82,6 +86,7 @@ export const BlurReveal = ({
           onAnimationComplete={onAnimationComplete}
           onAnimationStart={onAnimationStart}
           style={style}
+          href={href}
         >
           <span className="sr-only">{children}</span>
           {children &&
