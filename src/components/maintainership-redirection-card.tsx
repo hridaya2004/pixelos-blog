@@ -39,24 +39,22 @@ export const MaintainershipRedirection = () => {
         <BlurReveal inView speedReveal={2}>
           Do you want to become a part of team?
         </BlurReveal>
-        <span className="inline-flex flex-wrap items-baseline gap-x-1">
-          <BlurReveal inView speedReveal={2} delay={1}>
-            Check out
-          </BlurReveal>
-          <BlurReveal
-            inView
-            speedReveal={2}
-            delay={1.2}
-            as="a"
-            href="/docs/maintainers"
-            className="font-bold text-blue-500"
-          >
-            these
-          </BlurReveal>
-          <BlurReveal inView speedReveal={2} delay={1.4}>
-            before applying.
-          </BlurReveal>
-        </span>
+        <BlurReveal as="span" className="mr-1.5" inView speedReveal={2} delay={1}>
+          Check out
+        </BlurReveal>
+        <BlurReveal
+          inView
+          speedReveal={2}
+          delay={1.2}
+          as="a"
+          href="/docs/maintainers"
+          className="mr-1.5 font-bold text-blue-500"
+        >
+          these
+        </BlurReveal>
+        <BlurReveal as="span" inView speedReveal={2} delay={1.4}>
+          before applying.
+        </BlurReveal>
       </div>
     </div>
   );
