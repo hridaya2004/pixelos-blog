@@ -8,9 +8,9 @@ export const docsRoute = "/docs";
 export const docsImageRoute = "/og/docs";
 export const docsContentRoute = "/llms.mdx/docs";
 
-export const donateRoute = "/docs";
-export const donateImageRoute = "/og/docs";
-export const donateContentRoute = "/llms.mdx/docs";
+export const donateRoute = "/donate";
+export const donateImageRoute = "/og/donate";
+export const donateContentRoute = "/llms.mdx/donate";
 
 // fill this with your actual GitHub info, for example:
 export const gitConfig = {
